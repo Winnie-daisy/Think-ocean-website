@@ -1,0 +1,302 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views/**/*.blade.php';
+
+/*
+ * Think Ocean design tokens.
+ * Brand teal (#1AA9BD) is below 4.5:1 contrast on white, so it is used for
+ * accents, icons and large text only. Body-size teal text and buttons use the
+ * deeper "teal-deep" shade, which meets WCAG AA.
+ */
+@theme {
+    --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --font-display: 'Poppins', 'Inter', ui-sans-serif, system-ui, sans-serif;
+
+    --color-navy: #0b3d5b;
+    --color-navy-deep: #082f47;
+    --color-navy-ink: #0a2c42;
+    --color-teal: #1aa9bd;
+    --color-teal-deep: #007f8e;
+    --color-mist: #e8f5f9;
+    --color-ice: #f1f8fb;
+    --color-soft: #f5f7fa;
+    --color-line: #e3ebef;
+    --color-charcoal: #1f2937;
+    --color-slate-muted: #5b6b78;
+
+    --shadow-card: 0 10px 30px rgb(11 61 91 / 0.08);
+    --shadow-card-hover: 0 18px 40px rgb(11 61 91 / 0.12);
+
+    --ease-gentle: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+    html {
+        -webkit-text-size-adjust: 100%;
+        text-rendering: optimizeLegibility;
+        scroll-behavior: smooth;
+    }
+
+    body {
+        @apply bg-white text-charcoal font-sans leading-[1.65] antialiased;
+    }
+
+    h1, h2, h3, h4 {
+        @apply font-display font-semibold text-navy;
+        line-height: 1.2;
+        text-wrap: balance;
+    }
+
+    p {
+        text-wrap: pretty;
+    }
+
+    :focus-visible {
+        outline: 3px solid #ffc857;
+        outline-offset: 3px;
+        border-radius: 2px;
+    }
+
+    ::selection {
+        background: var(--color-mist);
+        color: var(--color-navy);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        html {
+            scroll-behavior: auto;
+        }
+
+        *, *::before, *::after {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    }
+}
+
+@layer components {
+    .container-site {
+        @apply mx-auto w-[min(100%-32px,1160px)];
+    }
+
+    .container-narrow {
+        @apply mx-auto w-[min(100%-32px,920px)];
+    }
+
+    .section {
+        @apply py-14 sm:py-20;
+    }
+
+    .section-title {
+        @apply text-[clamp(24px,2.8vw,32px)] font-bold;
+    }
+
+    .lead {
+        @apply max-w-3xl text-[17px] text-slate-muted;
+    }
+
+    .eyebrow {
+        @apply mb-2.5 inline-block text-xs font-semibold uppercase tracking-[0.14em] text-teal-deep;
+    }
+
+    .eyebrow-light {
+        @apply text-[#7fe0e0];
+    }
+
+    .btn {
+        @apply inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full border-[1.5px] px-6 py-2.5 text-sm leading-none font-semibold transition duration-200 hover:-translate-y-px;
+    }
+
+    .btn-sm {
+        @apply min-h-9 px-[18px] py-2 text-[13px];
+    }
+
+    .btn-primary {
+        @apply border-teal-deep bg-teal-deep text-white hover:border-navy hover:bg-navy;
+    }
+
+    .btn-deep {
+        @apply border-navy bg-navy text-white hover:border-navy-deep hover:bg-navy-deep;
+    }
+
+    .btn-light {
+        @apply border-mist bg-mist text-navy hover:border-[#d3eef3] hover:bg-[#d3eef3];
+    }
+
+    .btn-outline-light {
+        @apply border-white bg-transparent text-white hover:bg-white hover:text-navy;
+    }
+
+    .btn-outline {
+        @apply border-navy/25 bg-transparent text-navy hover:border-navy hover:bg-navy hover:text-white;
+    }
+
+    .link-arrow {
+        @apply inline-flex items-center gap-1.5 text-sm font-semibold text-teal-deep transition hover:text-navy;
+    }
+
+    .link-arrow svg {
+        @apply transition-transform duration-200;
+    }
+
+    .link-arrow:hover svg {
+        transform: translateX(3px);
+    }
+
+    .icon-circle {
+        @apply grid size-14 flex-none place-items-center rounded-full bg-navy text-white;
+    }
+
+    /* Photo banner at the top of interior pages. */
+    .banner-overlay {
+        background: linear-gradient(90deg, rgb(6 38 58 / 0.85) 0%, rgb(8 47 71 / 0.55) 45%, rgb(8 47 71 / 0.05) 85%);
+    }
+
+    /* Bordered white card with a soft shadow that lifts on hover. */
+    .card {
+        @apply flex flex-col overflow-hidden rounded-[14px] border border-line bg-white shadow-card transition duration-300;
+    }
+
+    .card:hover {
+        @apply shadow-card-hover;
+        transform: translateY(-3px);
+    }
+
+    .card .card-image {
+        @apply transition duration-500;
+    }
+
+    .card:hover .card-image {
+        transform: scale(1.04);
+    }
+
+    /* Deep-blue call-to-action band. */
+    .cta-band {
+        @apply flex flex-col items-start gap-7 rounded-[14px] bg-navy px-6 py-7 text-white md:flex-row md:items-center md:px-10 md:py-[34px];
+    }
+
+    /* Light-blue rounded tile used for icon cards and panels. */
+    .tile {
+        @apply rounded-[14px] border border-[#d7ecf2] bg-mist;
+    }
+
+    /* Left-weighted tint over full-bleed photographs (hero and photo bands). */
+    .photo-overlay {
+        background: linear-gradient(90deg, rgb(6 38 58 / 0.88) 0%, rgb(8 47 71 / 0.62) 40%, rgb(8 47 71 / 0.1) 75%);
+    }
+
+    /* Long-form rich text from the CMS. */
+    .prose-ocean {
+        @apply max-w-none text-[1.0625rem] leading-[1.8] text-charcoal;
+    }
+
+    .prose-ocean > * + * {
+        margin-top: 1.25em;
+    }
+
+    .prose-ocean h2 {
+        @apply mt-12 text-3xl leading-tight;
+    }
+
+    .prose-ocean h3 {
+        @apply mt-10 text-2xl leading-snug;
+    }
+
+    .prose-ocean h4 {
+        @apply mt-8 text-lg;
+    }
+
+    .prose-ocean a {
+        @apply font-medium text-teal-deep underline decoration-teal/50 decoration-2 underline-offset-4 hover:text-navy;
+    }
+
+    .prose-ocean ul {
+        @apply list-disc pl-6;
+    }
+
+    .prose-ocean ol {
+        @apply list-decimal pl-6;
+    }
+
+    .prose-ocean li + li {
+        margin-top: 0.5em;
+    }
+
+    .prose-ocean li::marker {
+        color: var(--color-teal-deep);
+    }
+
+    .prose-ocean blockquote {
+        @apply border-l-4 border-teal py-1 pl-6 font-display text-xl font-medium leading-relaxed text-navy;
+    }
+
+    .prose-ocean img {
+        @apply rounded-[14px];
+    }
+
+    .prose-ocean table {
+        @apply w-full border-collapse text-left text-base;
+    }
+
+    .prose-ocean th, .prose-ocean td {
+        @apply border-b border-navy/10 px-3 py-2;
+    }
+
+    .prose-ocean th {
+        @apply font-semibold text-navy;
+    }
+
+    .prose-ocean strong {
+        @apply font-semibold text-navy;
+    }
+
+    .prose-on-dark {
+        @apply text-white/85;
+    }
+
+    .prose-on-dark h2, .prose-on-dark h3, .prose-on-dark strong {
+        @apply text-white;
+    }
+
+    .prose-on-dark a {
+        @apply text-mist decoration-mist/50 hover:text-white;
+    }
+
+    .form-input {
+        @apply block w-full rounded-[10px] border border-[#cfdde3] bg-white px-3.5 py-3 text-[15px] text-charcoal transition placeholder:text-slate-muted/70 focus:border-teal focus:outline-none focus:ring-[3px] focus:ring-teal/15;
+    }
+
+    .form-input[aria-invalid='true'] {
+        @apply border-red-700 ring-2 ring-red-700/15;
+    }
+
+    /* Subtle reveal on scroll. Disabled for reduced-motion users and when JavaScript is off. */
+    .js [data-reveal] {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 0.9s var(--ease-gentle), transform 0.9s var(--ease-gentle);
+    }
+
+    .js [data-reveal].is-visible {
+        opacity: 1;
+        transform: none;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .js [data-reveal] {
+            opacity: 1;
+            transform: none;
+        }
+    }
+}
+
+@keyframes on-air-pulse {
+    50% { opacity: 0.25; }
+}
+
+@keyframes scroll-bob {
+    50% { transform: translate(-50%, 6px); }
+}

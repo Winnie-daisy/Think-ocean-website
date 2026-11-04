@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /admin
+Disallow: /search
+
+# After deployment, add the absolute sitemap URL for the live domain, e.g.:
+# Sitemap: https://www.example.org/sitemap.xml

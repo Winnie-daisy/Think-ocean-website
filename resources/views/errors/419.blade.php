@@ -1,0 +1,1 @@
+@include('errors.standalone', ['code' => 'Error 419', 'title' => 'This page has expired', 'message' => 'For your security, forms expire after a while. Please go back, refresh the page and try again.'])

@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="96" viewBox="0 0 240 96" role="img" aria-labelledby="title">
+  <title id="title">MTN MoMo</title>
+  <rect width="240" height="96" rx="18" fill="#ffcb05"/>
+  <ellipse cx="49" cy="48" rx="31" ry="21" fill="none" stroke="#111" stroke-width="4"/>
+  <text x="49" y="55" text-anchor="middle" font-family="Arial,sans-serif" font-size="20" font-weight="700" fill="#111">MTN</text>
+  <text x="92" y="58" font-family="Arial,sans-serif" font-size="30" font-weight="800" fill="#111">MoMo</text>
+</svg>
