@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Media;
+use App\Models\Page;
 use App\Support\LiveStream;
 use App\Support\SiteSettings;
 use Illuminate\View\View;
@@ -19,6 +20,8 @@ class LiveController extends Controller
         $thumbnails = Media::query()->publiclyVisible()->whereIn('id', $videos->pluck('image_id')->filter()->all())->get()->keyBy('id');
 
         return view('live', [
+            // The "Think Ocean TV" page in the CMS holds the editable content shown below the player.
+            'page' => Page::query()->published()->where('slug', Page::TV_SLUG)->first(),
             'stream' => $stream,
             'title' => $settings->get('live_title') ?: 'Think Ocean TV',
             'description' => $settings->get('live_description'),

@@ -23,6 +23,7 @@ class PageController extends Controller
             'projects' => route('projects.index'),
             'news' => route('news.index'),
             'contact' => route('contact'),
+            Page::TV_SLUG => route('watch'),
             default => null,
         };
 

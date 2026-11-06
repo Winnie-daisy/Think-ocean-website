@@ -23,6 +23,7 @@ class SiteSettings
         'logo_media_id' => null,
         'favicon_media_id' => null,
         'contact_email' => null,
+        'tv_email' => null,
         'contact_phone' => null,
         'postal_address' => null,
         'company_registration' => null,

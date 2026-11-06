@@ -2,8 +2,8 @@
     /** @var array{type: string, src: string}|null $stream */
 @endphp
 
-<x-layout title="Watch" :description="$description ?: 'Video, broadcasts and stories from Think Ocean.'">
-    <x-page-header title="Watch Think Ocean" intro="Video, broadcasts and stories from our work." fallback="news-fish" />
+<x-layout :title="$page?->meta_title ?: 'Watch'" :description="$page?->meta_description ?: ($description ?: 'Video, broadcasts and stories from Think Ocean.')" :image="$page?->ogImage">
+    <x-page-header title="Watch Think Ocean" :intro="$page?->intro ?: 'Video, broadcasts and stories from our work.'" fallback="news-fish" />
 
     <section class="section" aria-labelledby="tv-title">
         <div class="container-site">
@@ -60,6 +60,10 @@
             @endif
         </div>
     </section>
+
+    @if ($page?->sections)
+        <x-sections :sections="$page->sections" />
+    @endif
 
     @if ($videos->isNotEmpty() || $browseUrl)
         <section class="section pt-0 sm:pt-0" aria-labelledby="videos-heading">

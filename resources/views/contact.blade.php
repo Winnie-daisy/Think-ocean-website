@@ -2,6 +2,7 @@
     $site = app(\App\Support\SiteSettings::class);
     $email = $site->get('contact_email');
     $phone = $site->get('contact_phone');
+    $tvEmail = $site->get('tv_email');
     $address = $site->get('postal_address');
     $fieldOrder = ['name', 'email', 'organisation', 'subject', 'message', 'consent'];
     $subjects = ['General enquiry', 'Partnership', 'Volunteering', 'Donations', 'Media and press', 'Something else'];
@@ -33,6 +34,15 @@
                                 <div>
                                     <dt class="text-sm font-semibold text-navy">Email</dt>
                                     <dd><a href="mailto:{{ $email }}" class="text-slate-muted hover:text-teal-deep">{{ $email }}</a></dd>
+                                </div>
+                            </div>
+                        @endif
+                        @if ($tvEmail)
+                            <div class="flex items-start gap-4">
+                                <x-ocean-icon name="tv" class="mt-0.5 size-[22px] shrink-0 text-teal-deep" />
+                                <div>
+                                    <dt class="text-sm font-semibold text-navy">Think Ocean TV <span class="font-normal text-slate-muted">(share your content)</span></dt>
+                                    <dd><a href="mailto:{{ $tvEmail }}" class="text-slate-muted hover:text-teal-deep">{{ $tvEmail }}</a></dd>
                                 </div>
                             </div>
                         @endif

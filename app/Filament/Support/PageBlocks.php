@@ -39,6 +39,13 @@ class PageBlocks
         'light-bulb' => 'Ideas',
         'shield-check' => 'Integrity',
         'trophy' => 'Impact',
+        'flag' => 'Mission',
+        'bolt' => 'Action / proactive',
+        'check-badge' => 'Reliability',
+        'arrow-path' => 'Adaptability',
+        'arrow-trending-up' => 'Results',
+        'star' => 'Optimism',
+        'tv' => 'Television',
     ];
 
     public static function builder(): Builder

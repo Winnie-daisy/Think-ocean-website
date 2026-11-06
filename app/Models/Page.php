@@ -24,6 +24,9 @@ class Page extends Model implements Publishable
     ];
 
     /** Slugs a custom page may not take because another route already uses them. */
+    /** Page whose sections appear on the Watch page (/watch) below the player. */
+    public const TV_SLUG = 'think-ocean-tv';
+
     public const RESERVED_SLUGS = [
         'admin', 'search', 'sitemap.xml', 'robots.txt', 'storage', 'livewire', 'up', 'filament', 'media', 'preview', 'live', 'watch', 'subscribe',
     ];
@@ -53,6 +56,7 @@ class Page extends Model implements Publishable
             'projects' => route('projects.index'),
             'news' => route('news.index'),
             'contact' => route('contact'),
+            self::TV_SLUG => route('watch'),
             default => route('pages.show', $this->slug),
         };
     }

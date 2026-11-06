@@ -36,15 +36,18 @@ class ThinkOceanImportTest extends TestCase
         $this->assertSame(7, Post::query()->published()->count());
         $this->assertTrue(Page::slugIsLive('donate'));
 
-        $this->get('/')->assertOk()->assertSee('Shared Purpose.')->assertSee('Our Partners')->assertSee('Discover the work')->assertSee('Watch');
-        $this->get('/about')->assertOk()->assertSee('An organisation focused on ocean-related change')->assertSee('Our Values')->assertDontSee('Meet the people behind');
-        $this->get('/what-we-do')->assertOk()->assertSee('Our Focus Areas');
-        $this->get('/get-involved')->assertOk()->assertSee('Be Part of the Change')->assertSee('Send Enquiry');
+        $this->get('/')->assertOk()->assertSee('Shared Purpose.')->assertSee('Five missions.')->assertSee('Our Partners')->assertSee('Eight Partners Media')->assertSee('the Voice of the Planet');
+        $this->get('/about')->assertOk()->assertSee('Rooted in action since 1992')->assertSee('Southern Ocean Whale Sanctuary')->assertSee('Impact-Oriented')->assertSee('Hugo Valdes-Vera');
+        $this->get('/what-we-do')->assertOk()->assertSee('Our Five Missions')->assertSee('the bubble wall', false);
+        $this->get('/get-involved')->assertOk()->assertSee('Be Part of the Change')->assertSee('Content, volunteers and sponsors.')->assertSee('mailto:TV&#64;thinkocean.earth', false)->assertSee('Send Enquiry');
         $this->get('/donate')->assertOk()->assertSee('Your support can enable')->assertSee('Online donations are coming soon');
-        $this->get('/projects')->assertOk()->assertSee('Reef Restoration Initiative');
+        $this->get('/projects')->assertOk()->assertSee('Stop at Source: River Plastic Innovation')->assertSee('The Mini Statues of London');
+        $this->get('/projects/plastic-free-campus')->assertOk()->assertSee('Change management');
         $this->get('/news')->assertOk()->assertSee('How blue carbon helps fight climate change');
         $this->get('/privacy-policy')->assertOk()->assertSee('Information we receive');
-        $this->get('/watch')->assertOk()->assertSee('Live now')->assertSee('data-live-player', false);
+        $this->get('/watch')->assertOk()->assertSee('Live now')->assertSee('data-live-player', false)->assertSee('Think Ocean TV Originals')->assertSee('The Planet Questions');
+        $this->get('/think-ocean-tv')->assertRedirect(route('watch'));
+        $this->get('/contact')->assertOk()->assertSee('TV@thinkocean.earth');
         $this->get('/live')->assertRedirect('/watch');
     }
 
@@ -52,10 +55,14 @@ class ThinkOceanImportTest extends TestCase
     {
         $admin = User::factory()->admin()->create();
 
+        Project::factory()->published()->create(['slug' => 'reef-restoration-initiative', 'title' => 'Reef Restoration Initiative']);
+
         $this->artisan('cms:import-think-ocean', ['--user' => $admin->email])->assertSuccessful();
         $this->artisan('cms:import-think-ocean', ['--user' => $admin->email])->assertSuccessful();
 
+        // The prototype's sample project is replaced by the five real missions (and stays restorable).
         $this->assertSame(5, Project::query()->count());
+        $this->assertTrue(Project::onlyTrashed()->where('slug', 'reef-restoration-initiative')->exists());
         $this->assertSame(7, Post::query()->count());
     }
 

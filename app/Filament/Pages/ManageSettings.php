@@ -85,6 +85,7 @@ class ManageSettings extends Page
                     ->schema([
                         TextInput::make('contact_email')->label('Public email address')->email()->maxLength(190),
                         TextInput::make('contact_phone')->label('Public phone number')->tel()->maxLength(40),
+                        TextInput::make('tv_email')->label('Think Ocean TV email (content submissions)')->email()->maxLength(190),
                         Textarea::make('postal_address')->rows(3)->maxLength(400)->columnSpanFull(),
                     ])
                     ->columns(2),

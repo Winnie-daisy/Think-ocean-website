@@ -22,7 +22,7 @@
                             ])>
                             @if ($logo)
                                 <x-media-image :media="$logo" :width="480" sizes="150px" alt="{{ $item['name'] }} logo"
-                                               class="max-h-[52px] max-w-[120px] object-contain opacity-85 grayscale transition duration-300 group-hover:opacity-100 group-hover:grayscale-0 group-focus-visible:grayscale-0 sm:max-h-16 sm:max-w-[150px]" />
+                                               class="max-h-[64px] max-w-[130px] object-contain sm:max-h-[80px] sm:max-w-[160px]" />
                                 <span class="text-xs leading-tight text-slate-muted">{{ $item['name'] }}</span>
                             @else
                                 <span class="font-display text-sm font-semibold leading-tight text-navy">{{ $item['name'] }}</span>
